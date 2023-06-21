@@ -49,6 +49,15 @@ public class TestCases extends AppTest {
 		 Thread.sleep(5000);
 		
 		driver.findElement(By.xpath("(//a[contains(text(),'Book')])[15]")).click(); // select flight
+		//driver.findElement(By.xpath("//button[normalize-space()='Continue']")).click();
+		
+		driver.findElement(By.xpath("(//a[contains(text(),'Login to continue →')])[1]")).click();
+		
+				
+	//WebElement ele=driver.findElement(By.xpath("//div[@class='_1OA6 _1Ukb']//div[@class='_2NM9']"));
+//				
+//				driver.switchTo().frame(ele);
+//				ele.sendKeys("8208236213");
 		System.out.println("login is required...........");
 		driver.close();
 		

@@ -40,6 +40,23 @@ public class PassengerDetailsPage {
         
         // Enter last name
         driver.findElement(By.xpath("(//input[@id='text-box'])[2]")).sendKeys(lastName);
+
+	    //Enter Email
+	     driver.findElement(By.xpath("//input[@class='fl-input']")).sendKeys("tanmay@gmail.com"); //email input
+
+	  // Select baggage option
+	    WebElement baggageDropdown = driver.findElement(By.xpath("(//div[@class='_1rL-'])[1]"));
+	    baggageDropdown.click();
+	    String baggageOptionLocator = String.format("//div[contains(text(),'%s')]", baggageOption);
+	    driver.findElement(By.xpath(baggageOptionLocator)).click();
+	    
+	    // Select seat option
+	   WebElement seatDropdown = driver.findElement(By.xpath("(//span[@class='_22d2 _2Mnp'])[2]"));
+	    seatDropdown.click();
+	    String seatOptionLocator = String.format("//div[contains(text(),'%s')]", seatOption);
+	    driver.findElement(By.xpath(seatOptionLocator)).click();   
+
+	 driver.findElement(By.xpath("(//button[@class='button button--block button--default _1JXX'])[1]")).click(); // click on proceed to play
         
     }
 

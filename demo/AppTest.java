@@ -1,23 +1,55 @@
-package com.demo;
+package com.test.paytm;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-public class AppTest 
-{
-	public WebDriver driver;
-   
-    @Test
-    public void Basetest() throws InterruptedException
-    {
-    	ChromeOptions options = new ChromeOptions();
-    	System.setProperty("webdriver.chrome.driver", "C:\\Users\\Dell\\Downloads\\chromedriver114\\chromedriver.exe");
-    	 driver= new ChromeDriver(options);
-    	
-    	driver.get("https://tickets.paytm.com/flights/");
-    	Thread.sleep(10000);
-    	driver.manage().window().maximize();
+public class AppTest {
+    
+	private WebDriver driver;
+
+    @BeforeTest
+    public void setup() {
+        System.setProperty("webdriver.chrome.driver", "C:\\Users\\Dell\\Downloads\\chromedriver114\\chromedriver.exe");
+        driver = new ChromeDriver();
+	driver.manage().window().maximize();
     }
+
+    @AfterTest
+    public void teardown() {
+        driver.quit();
+    }
+
+    @Test
+    public void testCase() {
+        HomePage homePage = new HomePage(driver);
+        FlightPage flightPage = new FlightPage(driver);
+        SelectedFlightPage selectedFlightPage = new SelectedFlightPage(driver);
+        PassengerDetailsPage passengerDetailsPage = new PassengerDetailsPage(driver);
+
+        homePage.open();
+        homePage.scrollDown();
+        homePage.clickFlightIcon();
+        homePage.clickDepartureLocation("Delhi");
+        homePage.clickDestinationLocation("Hyderabad");
+
+        flightPage.selectDate("21");
+        flightPage.searchFlights();
+
+        String numberOfStops = selectedFlightPage.getNumberOfStops();
+        String takeoffTime = selectedFlightPage.getTakeoffTime();
+        String reachTime = selectedFlightPage.getReachTime();
+
+        selectedFlightPage.selectFlight();
+
+        passengerDetailsPage.switchToNewWindow();
+        passengerDetailsPage.clickHereQR();
+        passengerDetailsPage.enterPassengerDetails(true, "Tanmay", "Khairnar");
+
+        
+    }
+
+    
 }
